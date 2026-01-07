@@ -1,0 +1,31 @@
+{
+    "project": "LuikiKart WebApp",
+    "tech": [
+        "React",
+        "Node.js",
+        "Socket.IO",
+        "Vanilla CSS"
+    ],
+    "features": [
+        "Real-time Multiplayer Racing",
+        "Synchronized Game State via WebSockets",
+        "Responsive React Interface",
+        "Custom Racing Physics Engine",
+        "In-browser Multiplayer Experience"
+    ],
+    "stack": {
+        "language": "JavaScript (ES6+)",
+        "framework": "React / Express",
+        "tools": [
+            "Socket.IO",
+            "npm",
+            "CSS Animations"
+        ],
+        "database": "Session-based State"
+    },
+    "screenshots": [],
+    "description": {
+        "es": "Aplicación web multijugador en tiempo real con interfaz en React y backend en Node.js, que simula un juego de carreras vía WebSockets.",
+        "en": "Real-time multiplayer web application with a React interface and Node.js backend, simulating a racing game via WebSockets."
+    }
+}

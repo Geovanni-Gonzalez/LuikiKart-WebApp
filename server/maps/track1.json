@@ -1,0 +1,49 @@
+{
+    "name": "Luiki Circuit",
+    "theme": "neon",
+    "startPositions": [
+        {
+            "r": 22,
+            "c": 2
+        },
+        {
+            "r": 22,
+            "c": 3
+        },
+        {
+            "r": 23,
+            "c": 2
+        },
+        {
+            "r": 23,
+            "c": 3
+        }
+    ],
+    "grid": [
+        "WWWWWWWWWWWWWWWWWWWWWWWWW",
+        "W.......................W",
+        "W.WWWWWWWWWWWWWWWWWWWWW.W",
+        "W.W...................W.W",
+        "W.W.WWWWWWWWWWWWWWWWW.W.W",
+        "W.W.W...............W.W.W",
+        "W.W.W.WWWWWWWWWWWWW.W.W.W",
+        "W.W.W.W...........W.W.W.W",
+        "W.W.W.W.WWWWWWWWW.W.W.W.W",
+        "W.W.W.W.W.......W.W.W.W.W",
+        "W.W.W.W.W.WWWWW.W.W.W.W.W",
+        "W.W.W.W.W.W...W.W.W.W.W.W",
+        "W.W.W.W.W.W...W.W.W.W.W.W",
+        "W.W.W.W.W.WWWWW.W.W.W.W.W",
+        "W.W.W.W.W.......W.W.W.W.W",
+        "W.W.W.W.WWWWWWWWW.W.W.W.W",
+        "W.W.W.W...........W.W.W.W",
+        "W.W.W.WWWWWWWWWWWWW.W.W.W",
+        "W.W.W...............W.W.W",
+        "W.W.WWWWWWWWWWWWWWWWW.W.W",
+        "W.W...................W.W",
+        "W.WWWWWWWWWWWWWWWWWWWWW.W",
+        "W.SSSS..................W",
+        "W.SSSS..................W",
+        "WWWWWWWWWWWWWWWWWWWWWWWWW"
+    ]
+}

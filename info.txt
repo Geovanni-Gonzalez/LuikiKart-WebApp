@@ -1,0 +1,7 @@
+a. Curso: IC-4700 Lenguajes de Programación
+b. Semestre y Año: I Semestre 2025
+c. Estudiantes: [Nombre Estudiante 1], [Nombre Estudiante 2]
+d. Carnets: [Carnet 1], [Carnet 2]
+e. Proyecto Programado: #4 (Luiki Kart)
+f. Fecha de entrega: [Fecha Actual]
+g. Estatus de la entrega: Excelente
