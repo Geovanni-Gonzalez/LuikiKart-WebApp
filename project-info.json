@@ -3,29 +3,31 @@
     "tech": [
         "React",
         "Node.js",
+        "TypeScript",
         "Socket.IO",
-        "Vanilla CSS"
+        "TailwindCSS"
     ],
     "features": [
-        "Real-time Multiplayer Racing",
-        "Synchronized Game State via WebSockets",
-        "Responsive React Interface",
-        "Custom Racing Physics Engine",
-        "In-browser Multiplayer Experience"
+        "Real-time Multiplayer Racing (Up to 5 players)",
+        "Power-up System (Boost, Ghost mechanics)",
+        "Glassmorphism UI & Dashboard",
+        "Custom Map Loader (JSON)",
+        "Strict Server-Side Validation & Anti-Cheat"
     ],
     "stack": {
-        "language": "JavaScript (ES6+)",
+        "language": "TypeScript",
         "framework": "React / Express",
         "tools": [
             "Socket.IO",
-            "npm",
-            "CSS Animations"
+            "Vite",
+            "TailwindCSS",
+            "PostCSS"
         ],
-        "database": "Session-based State"
+        "database": "In-Memory Game State"
     },
     "screenshots": [],
     "description": {
-        "es": "Aplicación web multijugador en tiempo real con interfaz en React y backend en Node.js, que simula un juego de carreras vía WebSockets.",
-        "en": "Real-time multiplayer web application with a React interface and Node.js backend, simulating a racing game via WebSockets."
+        "es": "Juego de carreras multijugador en tiempo real con estética Cyberpunk/Neon. Desarrollado en TypeScript con React y Socket.io, cuenta con sistema de power-ups, colisiones y salas de espera dinámicas.",
+        "en": "Real-time multiplayer racing game with Cyberpunk/Neon aesthetics. Built with TypeScript, React, and Socket.io, featuring power-ups, collisions, and dynamic lobbies."
     }
 }
