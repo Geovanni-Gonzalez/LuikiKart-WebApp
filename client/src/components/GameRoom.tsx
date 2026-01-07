@@ -27,7 +27,7 @@ export default function GameRoom({ gameId, onLeave }: GameRoomProps) {
     // Keyboard inputs
     useEffect(() => {
         function handleKeyDown(e: KeyboardEvent) {
-            if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(e.code) > -1) {
+            if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Space"].indexOf(e.code) > -1) {
                 e.preventDefault();
             }
 
@@ -43,6 +43,10 @@ export default function GameRoom({ gameId, onLeave }: GameRoomProps) {
 
             if (direction) {
                 socket.emit('player_input', { gameId, direction });
+            }
+
+            if (e.code === 'Space') {
+                socket.emit('use_item', { gameId });
             }
         }
 
@@ -102,21 +106,17 @@ export default function GameRoom({ gameId, onLeave }: GameRoomProps) {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: p.color }} />
+                                    <div className="flex flex-col items-end gap-1">
+                                        <div className="w-2 h-2 rounded-full" style={{ backgroundColor: p.color }} />
+                                        {/* Show opponent items? Maybe strategy later */}
+                                        {p.activeEffect && (
+                                            <span className="text-[8px] bg-yellow-500 text-black px-1 rounded font-bold animate-pulse">
+                                                {p.activeEffect}
+                                            </span>
+                                        )}
+                                    </div>
                                 </div>
                             ))}
-                        </div>
-                    </div>
-
-                    <div className="bg-gray-900/60 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-xl">
-                        <h3 className="text-xs font-bold text-gray-500 uppercase mb-2">Controls</h3>
-                        <div className="flex justify-between text-xs text-gray-400 font-mono">
-                            <span>Movement</span>
-                            <span className="text-white">ARROWS</span>
-                        </div>
-                        <div className="flex justify-between text-xs text-gray-400 font-mono mt-1">
-                            <span>Ready Up</span>
-                            <span className="text-white">'U' KEY</span>
                         </div>
                     </div>
                 </div>
@@ -158,12 +158,22 @@ export default function GameRoom({ gameId, onLeave }: GameRoomProps) {
                         </div>
                     </div>
 
-                    <div className="bg-gray-900/60 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-xl text-center">
-                        <div className="text-xs text-gray-400 uppercase tracking-widest mb-1">Status</div>
-                        <div className={`text-xl font-bold ${myPlayer?.isReady ? 'text-green-400' : 'text-yellow-400'}`}>
-                            {myPlayer?.isReady ? 'READY' : 'NOT READY'}
+                    {/* Inventory Slot */}
+                    <div className="bg-gray-900/60 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-xl text-center relative overflow-hidden group">
+                        <div className="text-xs text-gray-400 uppercase tracking-widest mb-2">Item Slot</div>
+                        <div className={`text-4xl font-bold transition-all duration-300 ${myPlayer?.inventory ? 'scale-110 drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]' : 'opacity-20 scale-90'}`}>
+                            {myPlayer?.inventory === 'BOOST' && '🚀'}
+                            {myPlayer?.inventory === 'GHOST' && '👻'}
+                            {!myPlayer?.inventory && 'EMPTY'}
+                        </div>
+                        {myPlayer?.inventory && (
+                            <div className="absolute inset-0 border-2 border-white/20 rounded-2xl animate-pulse" />
+                        )}
+                        <div className="mt-2 text-[10px] text-gray-500 font-mono">
+                            PRESS [SPACE]
                         </div>
                     </div>
+
 
                     <button
                         onClick={onLeave}

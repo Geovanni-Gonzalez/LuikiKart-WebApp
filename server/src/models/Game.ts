@@ -14,6 +14,7 @@ export class Game {
 
     private loopInterval: NodeJS.Timeout | null = null;
     private onStateUpdate: (gameId: string, state: any) => void;
+    private itemCooldowns: Map<string, number> = new Map(); // "r-c" -> timestamp
 
     // "La partida estará creada por 3 minutos... si no es iniciada, se cierra"
     // We need a timeout for that.
@@ -98,9 +99,10 @@ export class Game {
         const player = this.players.get(playerId);
         if (!player || player.finished) return;
 
-        // Rate limit: 10 moves per second (100ms)
+        // Rate limit: 10 moves per second (100ms). If BOOST, 50ms (20 moves/sec)
         const now = Date.now();
-        if (now - player.lastMoveTime < 100) return;
+        const delay = player.activeEffect === 'BOOST' ? 50 : 100;
+        if (now - player.lastMoveTime < delay) return;
 
         let newR = player.row;
         let newC = player.col;
@@ -132,10 +134,47 @@ export class Game {
                 }
             }
 
+            if (newTile === '?') {
+                const key = `${newR}-${newC}`;
+                const now = Date.now();
+                if (!this.itemCooldowns.has(key) || now - this.itemCooldowns.get(key)! > 5000) {
+                    if (!player.inventory) {
+                        this.itemCooldowns.set(key, now);
+                        player.inventory = Math.random() > 0.5 ? 'BOOST' : 'GHOST';
+                    }
+                }
+            }
+
             player.setPosition(newR, newC);
             player.lastMoveTime = now;
             this.broadcastState();
         }
+    }
+
+    public useItem(playerId: string) {
+        const player = this.players.get(playerId);
+        if (!player || !player.inventory) return;
+
+        const item = player.inventory;
+        player.inventory = null;
+        player.activeEffect = item;
+
+        // Effect Logic
+        if (item === 'BOOST') {
+            // Speed boost logic handled in movePlayer check? 
+            // Simplified: Just clear effect after 3s
+            setTimeout(() => {
+                player.activeEffect = null;
+                this.broadcastState();
+            }, 3000);
+        } else if (item === 'GHOST') {
+            setTimeout(() => {
+                player.activeEffect = null;
+                this.broadcastState();
+            }, 5000);
+        }
+
+        this.broadcastState();
     }
 
     private checkWinCondition() {

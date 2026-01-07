@@ -10,6 +10,8 @@ export class Player {
     public finished: boolean;
     public finishTime: number;
     public lastMoveTime: number;
+    public inventory: string | null;
+    public activeEffect: string | null;
 
     constructor(id: string, nickname: string) {
         this.id = id;
@@ -22,7 +24,10 @@ export class Player {
         this.lastLapUpdate = 0;
         this.finished = false;
         this.finishTime = 0;
+        this.finishTime = 0;
         this.lastMoveTime = 0;
+        this.inventory = null;
+        this.activeEffect = null;
     }
 
     private getRandomColor(): string {

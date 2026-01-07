@@ -97,6 +97,14 @@ io.on('connection', (socket) => {
         }
     });
 
+    socket.on('use_item', (data) => {
+        const { gameId } = data;
+        const game = lobby.getGame(gameId);
+        if (game) {
+            game.useItem(socket.id);
+        }
+    });
+
     socket.on('leave_room', () => {
         lobby.removePlayer(socket.id);
         io.emit('rooms_update', lobby.listGames());

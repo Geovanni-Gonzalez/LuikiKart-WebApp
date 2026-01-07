@@ -18,6 +18,7 @@ export default function Grid({ mapData, players }: GridProps) {
             case 'W': return 'bg-gray-900 border-gray-800/50 shadow-inner'; // Wall
             case '.': return 'bg-gray-800/30'; // Road
             case 'S': return 'bg-yellow-500/20 border border-yellow-500/30 animate-pulse'; // Start
+            case '?': return 'bg-blue-500/20 border border-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.5)] animate-pulse'; // Item Box
             default: return 'bg-black';
         }
     };
