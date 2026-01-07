@@ -43,6 +43,10 @@ app.get('/api/rooms', (req, res) => {
 io.on('connection', (socket) => {
     console.log('User connected:', socket.id);
 
+    socket.on('list_rooms', () => {
+        socket.emit('rooms_update', lobby.listGames());
+    });
+
     socket.on('create_room', (data) => {
         // data: { nickname, map, laps, maxPlayers }
         const { nickname, map, laps, maxPlayers } = data;

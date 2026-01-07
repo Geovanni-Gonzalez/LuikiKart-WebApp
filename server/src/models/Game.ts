@@ -159,7 +159,8 @@ export class Game {
             status: this.status,
             players: playersArr,
             map: this.map.data, // heavy? maybe send map only once or name
-            startTime: this.startTime
+            startTime: this.startTime,
+            requiredLaps: this.requiredLaps
         };
         this.onStateUpdate(this.id, state);
     }
@@ -171,7 +172,8 @@ export class Game {
             status: this.status,
             players: playersArr,
             mapName: this.mapName, // Client loads map by name
-            startTime: this.startTime
+            startTime: this.startTime,
+            requiredLaps: this.requiredLaps
         };
     }
 }

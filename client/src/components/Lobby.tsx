@@ -21,7 +21,7 @@ export default function Lobby({ nickname }: LobbyProps) {
             setRooms(list);
         }
 
-        socket.on('room_list', onRoomList);
+        socket.on('rooms_update', onRoomList);
 
         // Auto refresh
         const interval = setInterval(() => {
@@ -29,7 +29,7 @@ export default function Lobby({ nickname }: LobbyProps) {
         }, 2000);
 
         return () => {
-            socket.off('room_list', onRoomList);
+            socket.off('rooms_update', onRoomList);
             clearInterval(interval);
         };
     }, []);
