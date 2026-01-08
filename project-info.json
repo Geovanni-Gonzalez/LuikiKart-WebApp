@@ -1,33 +1,58 @@
 {
-    "project": "LuikiKart WebApp",
-    "tech": [
-        "React",
-        "Node.js",
-        "TypeScript",
-        "Socket.IO",
-        "TailwindCSS"
-    ],
-    "features": [
-        "Real-time Multiplayer Racing (Up to 5 players)",
-        "Power-up System (Boost, Ghost mechanics)",
-        "Glassmorphism UI & Dashboard",
-        "Custom Map Loader (JSON)",
-        "Strict Server-Side Validation & Anti-Cheat"
-    ],
-    "stack": {
-        "language": "TypeScript",
-        "framework": "React / Express",
-        "tools": [
+    "en": {
+        "tech": [
+            "TypeScript",
+            "React",
+            "Node.js",
             "Socket.IO",
-            "Vite",
-            "TailwindCSS",
-            "PostCSS"
+            "TailwindCSS"
         ],
-        "database": "In-Memory Game State"
+        "features": [
+            "Real-time multiplayer racing infrastructure",
+            "Dynamic power-up system (Boost, Ghost, Shields)",
+            "Premium Glassmorphism & Cyberpunk UI Design",
+            "Strict server-side validation for competitive integrity",
+            "Dynamic room and lobby management"
+        ],
+        "stack": {
+            "language": "TypeScript",
+            "framework": "React / Express",
+            "tools": [
+                "Vite",
+                "Socket.IO",
+                "Framer Motion"
+            ],
+            "database": "Redis / In-Memory State"
+        },
+        "screenshots": [],
+        "description": "A high-octane multiplayer racing experience built with modern web technologies. It features a responsive Cyberpunk-themed GUI with advanced Glassmorphism effects and utilizes WebSockets for real-time synchronization between up to five racers. The platform includes a complex power-up system, physics-based collisions, and a robust lobby infrastructure, all secured by strict server-side validation to ensure a fair and competitive racing environment."
     },
-    "screenshots": [],
-    "description": {
-        "es": "Juego de carreras multijugador en tiempo real con estética Cyberpunk/Neon. Desarrollado en TypeScript con React y Socket.io, cuenta con sistema de power-ups, colisiones y salas de espera dinámicas.",
-        "en": "Real-time multiplayer racing game with Cyberpunk/Neon aesthetics. Built with TypeScript, React, and Socket.io, featuring power-ups, collisions, and dynamic lobbies."
+    "es": {
+        "tech": [
+            "TypeScript",
+            "React",
+            "Node.js",
+            "Socket.IO",
+            "TailwindCSS"
+        ],
+        "features": [
+            "Infraestructura de carreras multijugador en tiempo real",
+            "Sistema dinámico de power-ups (Turbo, Fantasma, Escudos)",
+            "Diseño de interfaz con Glásmorfismo y estética Cyberpunk",
+            "Validación estricta en el servidor para integridad competitiva",
+            "Gestión dinámica de salas y espera (Lobbies)"
+        ],
+        "stack": {
+            "language": "TypeScript",
+            "framework": "React / Express",
+            "tools": [
+                "Vite",
+                "Socket.IO",
+                "Framer Motion"
+            ],
+            "database": "Redis / Estado en Memoria"
+        },
+        "screenshots": [],
+        "description": "Una experiencia de carreras multijugador de alta intensidad construida con tecnologías web modernas. Cuenta con una interfaz responsiva de temática Cyberpunk con efectos avanzados de Glásmorfismo y utiliza WebSockets para la sincronización en tiempo real. La plataforma incluye un complejo sistema de power-ups, colisiones basadas en física y una robusta infraestructura de salas de espera, todo asegurado mediante una estricta validación en el servidor para garantizar un entorno justo."
     }
 }
