@@ -1,13 +1,16 @@
+import { useLanguage } from '../contexts/LanguageContext';
+
 interface GridProps {
     mapData: any;
     players: any[];
 }
 
 export default function Grid({ mapData, players }: GridProps) {
+    const { t } = useLanguage();
     if (!mapData || !mapData.grid) return (
         <div className="flex items-center justify-center p-12 bg-gray-900/50 rounded-xl border border-dashed border-gray-700">
             <div className="animate-spin text-4xl mr-4">⚙️</div>
-            <div className="text-white font-mono">LOADING CIRCUIT DATA...</div>
+            <div className="text-white font-mono">{t('loading_circuit')}</div>
         </div>
     );
 

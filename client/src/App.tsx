@@ -3,6 +3,7 @@ import { socket } from './socket';
 import Login from './components/Login';
 import Lobby from './components/Lobby';
 import GameRoom from './components/GameRoom';
+import { useLanguage } from './contexts/LanguageContext';
 
 export type Screen = 'login' | 'lobby' | 'game';
 
@@ -11,6 +12,7 @@ function App() {
   const [nickname, setNickname] = useState('');
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [currentGameId, setCurrentGameId] = useState<string | null>(null);
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     function onConnect() {
@@ -70,8 +72,24 @@ function App() {
           <h1 className="text-4xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
             LUIKI KART
           </h1>
-          <div className="flex items-center gap-4">
-            {nickname && <span className="text-gray-400">Driver: <b className="text-white">{nickname}</b></span>}
+          <div className="flex items-center gap-6">
+            {/* Language Selector */}
+            <div className="flex bg-gray-800/50 rounded-lg p-1 border border-white/10">
+              <button
+                onClick={() => setLanguage('es')}
+                className={`px-3 py-1 rounded-md text-xs font-bold transition-all ${language === 'es' ? 'bg-purple-600 text-white shadow-lg shadow-purple-900/40' : 'text-gray-400 hover:text-white'}`}
+              >
+                ESP
+              </button>
+              <button
+                onClick={() => setLanguage('en')}
+                className={`px-3 py-1 rounded-md text-xs font-bold transition-all ${language === 'en' ? 'bg-purple-600 text-white shadow-lg shadow-purple-900/40' : 'text-gray-400 hover:text-white'}`}
+              >
+                ENG
+              </button>
+            </div>
+
+            {nickname && <span className="text-gray-400">{t('driver')}: <b className="text-white">{nickname}</b></span>}
             <div className={`w-3 h-3 rounded-full ${isConnected ? 'bg-green-500 shadow-[0_0_10px_#22c55e]' : 'bg-red-500'}`} />
           </div>
         </header>

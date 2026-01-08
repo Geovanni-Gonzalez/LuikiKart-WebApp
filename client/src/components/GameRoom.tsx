@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { socket } from '../socket';
 import Grid from './Grid';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface GameRoomProps {
     gameId: string;
@@ -9,6 +10,7 @@ interface GameRoomProps {
 
 export default function GameRoom({ gameId, onLeave }: GameRoomProps) {
     const [gameState, setGameState] = useState<any>(null);
+    const { t } = useLanguage();
 
     useEffect(() => {
         socket.emit('get_game_state', { gameId });
@@ -58,7 +60,7 @@ export default function GameRoom({ gameId, onLeave }: GameRoomProps) {
         <div className="flex flex-col items-center justify-center h-full gap-4">
             <div className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" />
             <div className="text-xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 animate-pulse">
-                ESTABLISHING LINK...
+                {t('establishing_link')}
             </div>
         </div>
     );
@@ -86,9 +88,9 @@ export default function GameRoom({ gameId, onLeave }: GameRoomProps) {
                 <div className="w-72 flex flex-col gap-4">
                     <div className="bg-gray-900/60 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-xl">
                         <div className="flex justify-between items-center mb-4 pb-2 border-b border-white/5">
-                            <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider">Leaderboard</h3>
+                            <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider">{t('leaderboard')}</h3>
                             <span className="text-xs bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded-full">
-                                {gameState.players.length} Drivers
+                                {gameState.players.length} {t('drivers')}
                             </span>
                         </div>
                         <div className="space-y-2">
@@ -100,8 +102,8 @@ export default function GameRoom({ gameId, onLeave }: GameRoomProps) {
                                             <div className="font-bold text-white text-sm leading-none mb-1">{p.nickname}</div>
                                             <div className="text-[10px] text-gray-400">
                                                 {p.finished ?
-                                                    <span className="text-green-400">FINISHED</span> :
-                                                    `Lap ${Math.min(p.lapsCompleted + 1, gameState.requiredLaps)}/${gameState.requiredLaps}`
+                                                    <span className="text-green-400">{t('finished')}</span> :
+                                                    `${t('lap')} ${Math.min(p.lapsCompleted + 1, gameState.requiredLaps)}/${gameState.requiredLaps}`
                                                 }
                                             </div>
                                         </div>
@@ -132,9 +134,9 @@ export default function GameRoom({ gameId, onLeave }: GameRoomProps) {
                     {isWaiting && (
                         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 backdrop-blur-sm z-20 rounded-xl">
                             <div className="text-4xl mb-4 animate-bounce">🚦</div>
-                            <h2 className="text-2xl font-black text-white italic tracking-tighter mb-2">WAITING FOR DRIVERS</h2>
+                            <h2 className="text-2xl font-black text-white italic tracking-tighter mb-2">{t('waiting_for_drivers')}</h2>
                             <p className="text-gray-400 text-sm font-mono bg-black/50 px-4 py-2 rounded-lg">
-                                Press <span className="text-white font-bold border border-gray-600 px-1 rounded">U</span> to warm up tires
+                                Press <span className="text-white font-bold border border-gray-600 px-1 rounded">U</span> {t('warm_up')}
                             </p>
                         </div>
                     )}
@@ -142,7 +144,7 @@ export default function GameRoom({ gameId, onLeave }: GameRoomProps) {
                     {gameState.status === 'starting' && (
                         <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-30 rounded-xl">
                             <div className="text-8xl font-black text-transparent bg-clip-text bg-gradient-to-t from-red-600 to-yellow-500 animate-ping">
-                                GET READY
+                                {t('get_ready')}
                             </div>
                         </div>
                     )}
@@ -151,7 +153,7 @@ export default function GameRoom({ gameId, onLeave }: GameRoomProps) {
                 {/* RIGHT PANEL: Stats / Status */}
                 <div className="w-64 flex flex-col gap-4">
                     <div className="bg-gray-900/60 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-xl text-center">
-                        <div className="text-xs text-gray-400 uppercase tracking-widest mb-2">Current Lap</div>
+                        <div className="text-xs text-gray-400 uppercase tracking-widest mb-2">{t('current_lap')}</div>
                         <div className="text-5xl font-black text-white mb-2 font-mono">
                             {myPlayer ? Math.min(myPlayer.lapsCompleted + 1, gameState.requiredLaps) : 1}
                             <span className="text-lg text-gray-600">/{gameState.requiredLaps}</span>
@@ -160,17 +162,17 @@ export default function GameRoom({ gameId, onLeave }: GameRoomProps) {
 
                     {/* Inventory Slot */}
                     <div className="bg-gray-900/60 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-xl text-center relative overflow-hidden group">
-                        <div className="text-xs text-gray-400 uppercase tracking-widest mb-2">Item Slot</div>
+                        <div className="text-xs text-gray-400 uppercase tracking-widest mb-2">{t('item_slot')}</div>
                         <div className={`text-4xl font-bold transition-all duration-300 ${myPlayer?.inventory ? 'scale-110 drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]' : 'opacity-20 scale-90'}`}>
                             {myPlayer?.inventory === 'BOOST' && '🚀'}
                             {myPlayer?.inventory === 'GHOST' && '👻'}
-                            {!myPlayer?.inventory && 'EMPTY'}
+                            {!myPlayer?.inventory && t('empty')}
                         </div>
                         {myPlayer?.inventory && (
                             <div className="absolute inset-0 border-2 border-white/20 rounded-2xl animate-pulse" />
                         )}
                         <div className="mt-2 text-[10px] text-gray-500 font-mono">
-                            PRESS [SPACE]
+                            {t('press_space')}
                         </div>
                     </div>
 
@@ -179,7 +181,7 @@ export default function GameRoom({ gameId, onLeave }: GameRoomProps) {
                         onClick={onLeave}
                         className="mt-auto w-full py-4 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-500 font-bold border border-red-500/30 transition-all uppercase text-sm tracking-widest"
                     >
-                        Abort Race
+                        {t('abort_race')}
                     </button>
                 </div>
 
@@ -191,9 +193,9 @@ export default function GameRoom({ gameId, onLeave }: GameRoomProps) {
                     <div className="max-w-2xl w-full p-8">
                         <div className="text-center mb-12">
                             <h1 className="text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-yellow-500 mb-4 animate-pulse">
-                                RACE FINISHED
+                                {t('race_finished')}
                             </h1>
-                            <p className="text-gray-400 tracking-widest uppercase">Performance Report</p>
+                            <p className="text-gray-400 tracking-widest uppercase">{t('performance_report')}</p>
                         </div>
 
                         <div className="space-y-4 mb-8">
@@ -206,8 +208,8 @@ export default function GameRoom({ gameId, onLeave }: GameRoomProps) {
                                         <div className="text-2xl font-bold text-white">{p.nickname}</div>
                                         <div className="text-sm text-gray-400 font-mono">
                                             {p.finished ?
-                                                `Time: ${(p.finishTime / 1000).toFixed(3)}s` :
-                                                'Did not finish'
+                                                `${t('time')}: ${(p.finishTime / 1000).toFixed(3)}s` :
+                                                t('did_not_finish')
                                             }
                                         </div>
                                     </div>
@@ -220,7 +222,7 @@ export default function GameRoom({ gameId, onLeave }: GameRoomProps) {
                             onClick={onLeave}
                             className="w-full bg-white text-black font-black text-xl py-6 rounded-2xl hover:scale-[1.02] transition-transform shadow-[0_0_40px_rgba(255,255,255,0.3)]"
                         >
-                            RETURN TO BASE
+                            {t('return_to_base')}
                         </button>
                     </div>
                 </div>

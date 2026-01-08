@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { socket } from '../socket';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface LobbyProps {
     nickname: string;
@@ -7,6 +8,7 @@ interface LobbyProps {
 
 export default function Lobby({ nickname }: LobbyProps) {
     const [rooms, setRooms] = useState<any[]>([]);
+    const { t } = useLanguage();
 
     // Create Form State
     const [newMapName, setNewMapName] = useState('track1.json');
@@ -56,10 +58,10 @@ export default function Lobby({ nickname }: LobbyProps) {
                 <div className="bg-gray-900/40 backdrop-blur-xl border border-white/10 p-6 rounded-3xl h-full flex flex-col shadow-2xl">
                     <div className="mb-8">
                         <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500 mb-2">
-                            Race Control
+                            {t('race_control')}
                         </h2>
                         <div className="text-sm text-gray-400">
-                            Welcome back, <span className="text-white font-semibold">{nickname}</span>
+                            {t('welcome_back')}, <span className="text-white font-semibold">{nickname}</span>
                         </div>
                     </div>
 
@@ -72,21 +74,21 @@ export default function Lobby({ nickname }: LobbyProps) {
                                 <div className="absolute right-0 top-0 opacity-10 transform translate-x-1/2 -translate-y-1/2">
                                     <svg className="w-64 h-64" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" /></svg>
                                 </div>
-                                <h3 className="text-2xl font-bold mb-2">Create New Race</h3>
-                                <p className="text-purple-200">Host your own lobby and customize the rules.</p>
+                                <h3 className="text-2xl font-bold mb-2">{t('create_new_race')}</h3>
+                                <p className="text-purple-200">{t('host_lobby')}</p>
                                 <div className="mt-4 inline-flex items-center text-sm font-bold uppercase tracking-wider">
-                                    Initialize <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+                                    {t('initialize')} <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
                                 </div>
                             </button>
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="bg-gray-800/50 p-4 rounded-2xl border border-gray-700">
                                     <div className="text-3xl font-bold text-white mb-1">0</div>
-                                    <div className="text-xs text-gray-400 uppercase">Wins</div>
+                                    <div className="text-xs text-gray-400 uppercase">{t('wins')}</div>
                                 </div>
                                 <div className="bg-gray-800/50 p-4 rounded-2xl border border-gray-700">
                                     <div className="text-3xl font-bold text-white mb-1">Rank 1</div>
-                                    <div className="text-xs text-gray-400 uppercase">Division</div>
+                                    <div className="text-xs text-gray-400 uppercase">{t('division')}</div>
                                 </div>
                             </div>
                         </div>
@@ -94,7 +96,7 @@ export default function Lobby({ nickname }: LobbyProps) {
                         <form onSubmit={handleCreateGame} className="flex-1 flex flex-col gap-6 animate-fadeIn">
                             <div className="space-y-4">
                                 <div>
-                                    <label className="block text-xs font-semibold text-gray-400 uppercase mb-2">Track Selection</label>
+                                    <label className="block text-xs font-semibold text-gray-400 uppercase mb-2">{t('track_selection')}</label>
                                     <select
                                         className="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 outline-none focus:border-purple-500 transition-colors"
                                         value={newMapName}
@@ -107,7 +109,7 @@ export default function Lobby({ nickname }: LobbyProps) {
 
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-xs font-semibold text-gray-400 uppercase mb-2">Laps</label>
+                                        <label className="block text-xs font-semibold text-gray-400 uppercase mb-2">{t('laps')}</label>
                                         <input
                                             type="number" min="1" max="10"
                                             className="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 outline-none focus:border-purple-500 transition-colors"
@@ -116,7 +118,7 @@ export default function Lobby({ nickname }: LobbyProps) {
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-semibold text-gray-400 uppercase mb-2">Max Players</label>
+                                        <label className="block text-xs font-semibold text-gray-400 uppercase mb-2">{t('max_players')}</label>
                                         <input
                                             type="number" min="2" max="5"
                                             className="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 outline-none focus:border-purple-500 transition-colors"
@@ -133,13 +135,13 @@ export default function Lobby({ nickname }: LobbyProps) {
                                     onClick={() => setIsCreating(false)}
                                     className="px-6 py-4 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-300 font-bold transition-colors"
                                 >
-                                    Cancel
+                                    {t('cancel')}
                                 </button>
                                 <button
                                     type="submit"
                                     className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold py-4 rounded-xl shadow-lg transition-all active:scale-95"
                                 >
-                                    Launch Lobby
+                                    {t('launch_lobby')}
                                 </button>
                             </div>
                         </form>
@@ -150,10 +152,10 @@ export default function Lobby({ nickname }: LobbyProps) {
             {/* Main Content / Room List */}
             <div className="lg:col-span-8 flex flex-col h-full overflow-hidden">
                 <div className="flex justify-between items-end mb-6">
-                    <h2 className="text-3xl font-black text-white">Live Feeds</h2>
+                    <h2 className="text-3xl font-black text-white">{t('live_feeds')}</h2>
                     <div className="flex items-center gap-2 text-sm text-green-400 bg-green-900/20 px-3 py-1 rounded-full border border-green-900/30">
                         <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                        Network Online
+                        {t('network_online')}
                     </div>
                 </div>
 
@@ -161,8 +163,8 @@ export default function Lobby({ nickname }: LobbyProps) {
                     {rooms.length === 0 ? (
                         <div className="h-full flex flex-col items-center justify-center text-gray-600 border-2 border-dashed border-gray-800 rounded-3xl p-12">
                             <div className="text-6xl mb-4 grayscale opacity-20">🏎️</div>
-                            <h3 className="text-xl font-bold mb-2">No Active Signals</h3>
-                            <p>The track is quiet. Be the one to start the engine.</p>
+                            <h3 className="text-xl font-bold mb-2">{t('no_active_signals')}</h3>
+                            <p>{t('track_quiet')}</p>
                         </div>
                     ) : (
                         rooms.map(room => (
@@ -180,10 +182,10 @@ export default function Lobby({ nickname }: LobbyProps) {
                                             <div className="flex items-center gap-4 text-sm text-gray-400">
                                                 <div className="flex items-center gap-1">
                                                     <span className={`w-2 h-2 rounded-full ${room.status === 'waiting' ? 'bg-green-500' : 'bg-yellow-500'}`} />
-                                                    {room.status.toUpperCase()}
+                                                    {room.status === 'waiting' ? t('waiting') : t('playing')}
                                                 </div>
                                                 <div>•</div>
-                                                <div>{room.players} Racers</div>
+                                                <div>{room.players} {t('racers')}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -193,7 +195,7 @@ export default function Lobby({ nickname }: LobbyProps) {
                                         disabled={room.status !== 'waiting'}
                                         className="px-8 py-3 rounded-xl font-bold bg-white text-gray-900 hover:bg-purple-400 transition-colors disabled:opacity-20 disabled:cursor-not-allowed"
                                     >
-                                        JOIN
+                                        {t('join')}
                                     </button>
                                 </div>
                             </div>

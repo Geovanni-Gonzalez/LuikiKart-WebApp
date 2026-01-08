@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface LoginProps {
     onJoin: (nickname: string) => void;
@@ -7,6 +8,7 @@ interface LoginProps {
 export default function Login({ onJoin }: LoginProps) {
     const [nick, setNick] = useState('');
     const [mounted, setMounted] = useState(false);
+    const { t } = useLanguage();
 
     useEffect(() => {
         setMounted(true);
@@ -31,7 +33,7 @@ export default function Login({ onJoin }: LoginProps) {
                         LUIKI KART
                     </h1>
                     <p className="text-gray-400 text-lg tracking-widest uppercase font-light">
-                        Hyper-Speed Racing
+                        {t('racing_subtitle')}
                     </p>
                 </div>
 
@@ -43,13 +45,13 @@ export default function Login({ onJoin }: LoginProps) {
                     <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
                         <div className="space-y-2">
                             <label htmlFor="nickname" className="text-sm font-semibold text-gray-400 uppercase tracking-wide ml-1">
-                                Identify Yourself
+                                {t('identify_yourself')}
                             </label>
                             <input
                                 id="nickname"
                                 type="text"
                                 className="w-full bg-gray-950/50 border border-gray-700 rounded-xl px-5 py-4 text-white text-lg placeholder-gray-600 focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 transition-all outline-none"
-                                placeholder="Enter your racer tag..."
+                                placeholder={t('racer_placeholder')}
                                 value={nick}
                                 onChange={(e) => setNick(e.target.value)}
                                 autoFocus
@@ -64,7 +66,7 @@ export default function Login({ onJoin }: LoginProps) {
                         >
                             <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
                             <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-xl bg-slate-950 px-3 py-4 text-sm font-bold text-white backdrop-blur-3xl transition-all group-hover:bg-slate-900 group-disabled:opacity-50">
-                                INITIALIZE ENGINE <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+                                {t('init_engine')} <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
                             </span>
                         </button>
                     </form>
@@ -72,7 +74,7 @@ export default function Login({ onJoin }: LoginProps) {
 
                 {/* Version Tag */}
                 <div className="text-center mt-8 text-xs text-gray-600 font-mono">
-                    v2.0.1 • SYSTEM READY
+                    v2.0.1 • {t('system_ready')}
                 </div>
             </div>
         </div>
